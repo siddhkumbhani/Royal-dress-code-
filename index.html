@@ -25,13 +25,18 @@ h1{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(48px,9vw,86px)
 .event:last-child{grid-column:1/-1}
 .number{font-family:"Cormorant Garamond",serif;color:var(--gold);font-size:15px;letter-spacing:2px}
 h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;font-size:30px;letter-spacing:1px;color:var(--gold2);margin:5px 0 18px}
+.event-time{font-size:11px;letter-spacing:1px;color:var(--gold);margin:-8px 0 14px;font-weight:500}
+.event-time span{color:var(--gold2);padding:0 5px}
 .dress{display:grid;grid-template-columns:100px 1fr;gap:8px;padding:10px 0;border-top:1px solid rgba(215,181,109,.2);align-items:start}
 .who{font-size:9px;letter-spacing:2px;color:var(--gold);font-weight:600;padding-top:4px}
 .what{font-size:12px;line-height:1.7;color:var(--cream);font-weight:400}
 .music{margin:28px auto 0;max-width:520px;text-align:center;border:1px solid rgba(215,181,109,.35);padding:20px;background:rgba(9,32,25,.7)}
 .music-title{font-family:"Cormorant Garamond",serif;color:var(--gold2);font-size:23px;margin-bottom:12px}
-input[type=file]{max-width:100%;font-family:Montserrat,sans-serif;font-size:11px;color:var(--muted);margin:5px auto 12px}
-audio{width:100%;height:34px}
+.sound-toggle{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:1px solid var(--gold);border-radius:999px;padding:12px 22px;background:linear-gradient(145deg,#173b2e,#071b16);color:var(--gold2);font-family:Montserrat,Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:2px;cursor:pointer;transition:all .25s ease}
+.sound-toggle:hover{background:#1d4938;box-shadow:0 0 18px rgba(215,181,109,.18);transform:translateY(-1px)}
+.sound-toggle:focus-visible{outline:2px solid var(--gold2);outline-offset:4px}
+.sound-note{font-size:9px;letter-spacing:1px;color:var(--muted);margin-top:12px}
+audio{display:none}
 footer{text-align:center;color:#9f9a88;font-size:9px;letter-spacing:2px;margin-top:30px}
 @media(max-width:620px){.page{padding-top:34px}.events{grid-template-columns:1fr}.event:last-child{grid-column:auto}.event{padding:21px 20px}.dress{grid-template-columns:88px 1fr}h2{font-size:28px}}
 </style>
@@ -49,54 +54,75 @@ footer{text-align:center;color:#9f9a88;font-size:9px;letter-spacing:2px;margin-t
 <section class="events">
   <article class="event">
     <div class="number">01</div>
-    <h2>Mandap Muhurat</h2>
-    <div class="dress"><div class="who">MEN'S</div><div class="what">Koti Kurta</div></div>
+    <h2>Mandap Muhrat</h2>
+    <div class="event-time">27 January 2027 <span>|</span> 2:30 PM</div>
+    <div class="dress"><div class="who">MEN'S</div><div class="what">Koti Kurta / Kurta</div></div>
     <div class="dress"><div class="who">LADIES</div><div class="what">Saree / Suits</div></div>
   </article>
   <article class="event">
     <div class="number">02</div>
     <h2>Pool Party</h2>
+    <div class="event-time">27 January 2027 <span>|</span> 5:30 PM</div>
     <div class="dress"><div class="who">MEN'S</div><div class="what">Shirt &amp; Trousers</div></div>
     <div class="dress"><div class="who">LADIES</div><div class="what">Western Co-ord Set / Dresses</div></div>
   </article>
   <article class="event">
     <div class="number">03</div>
     <h2>Grah Shanti</h2>
-    <div class="dress"><div class="who">MEN'S</div><div class="what">Koti Kurta</div></div>
-    <div class="dress"><div class="who">LADIES</div><div class="what">Saree</div></div>
+    <div class="event-time">28 January 2027 <span>|</span> 1:00 PM</div>
+    <div class="dress"><div class="who">MEN'S</div><div class="what">Kurta / Formal</div></div>
+    <div class="dress"><div class="who">LADIES</div><div class="what">Indo-Western / Saree</div></div>
   </article>
   <article class="event">
     <div class="number">04</div>
     <h2>Sangeet Night</h2>
+    <div class="event-time">28 January 2027 <span>|</span> 8:00 PM</div>
     <div class="dress"><div class="who">MEN'S</div><div class="what">Indo-Western / Kurta</div></div>
-    <div class="dress"><div class="who">LADIES</div><div class="what">Indo-Western Gowns / Lehenga / Drape Saree</div></div>
+    <div class="dress"><div class="who">LADIES</div><div class="what">Indo-Western Gown / Lehenga / Drape Saree</div></div>
   </article>
   <article class="event">
     <div class="number">05</div>
     <h2>Marriage</h2>
-    <div class="dress"><div class="who">MEN'S</div><div class="what">Blazer</div></div>
-    <div class="dress"><div class="who">LADIES</div><div class="what">Anarkali / Saree</div></div>
+    <div class="event-time">29 January 2027</div>
+    <div class="dress"><div class="who">MEN'S</div><div class="what">Jodhpuri / Blazer</div></div>
+    <div class="dress"><div class="who">LADIES</div><div class="what">Lehenga / Saree / Anarkali</div></div>
   </article>
 </section>
 
 <section class="music">
   <div class="music-title">A Little Music</div>
-  <input id="songFile" type="file" accept="audio/*" aria-label="Choose your song">
-  <audio id="player" controls></audio>
+  <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="false">
+    <span aria-hidden="true">♫</span><span id="soundLabel">SOUND OFF</span>
+  </button>
+  <div class="sound-note" id="soundNote">TAP TO ENJOY THE MUSIC</div>
+  <audio id="player" src="song.mp3" autoplay loop muted playsinline preload="auto"></audio>
 </section>
 <footer>WITH LOVE &amp; ROYAL ELEGANCE</footer>
 </main>
 <script>
-const picker=document.getElementById('songFile');
-const player=document.getElementById('player');
-let currentSongUrl='';
-picker.addEventListener('change',()=>{
-  if(currentSongUrl) URL.revokeObjectURL(currentSongUrl);
-  const file=picker.files && picker.files[0];
-  if(!file){player.removeAttribute('src');return;}
-  currentSongUrl=URL.createObjectURL(file);
-  player.src=currentSongUrl;
-  player.load();
+const player = document.getElementById('player');
+const soundToggle = document.getElementById('soundToggle');
+const soundLabel = document.getElementById('soundLabel');
+const soundNote = document.getElementById('soundNote');
+
+// Browsers generally permit autoplay only when the audio starts muted.
+player.muted = true;
+player.play().catch(() => {
+  soundNote.textContent = 'TAP SOUND ON TO START THE MUSIC';
+});
+
+soundToggle.addEventListener('click', async () => {
+  if (player.paused) {
+    try { await player.play(); } catch (error) {
+      soundNote.textContent = 'MUSIC COULD NOT START — PLEASE TRY AGAIN';
+      return;
+    }
+  }
+  player.muted = !player.muted;
+  const isSoundOn = !player.muted;
+  soundLabel.textContent = isSoundOn ? 'SOUND ON' : 'SOUND OFF';
+  soundToggle.setAttribute('aria-pressed', String(isSoundOn));
+  soundNote.textContent = isSoundOn ? 'ENJOY THE CELEBRATION' : 'TAP TO ENJOY THE MUSIC';
 });
 </script>
 </body>
